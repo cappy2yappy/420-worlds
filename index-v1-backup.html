@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>420 Worlds - It's Always 4:20 Somewhere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.screen.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Age Gate */
+.age-gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a2e1a 100%);
+  padding: 20px;
+  text-align: center;
+}
+
+.age-gate h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #39ff14;
+  text-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+.age-gate p {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  opacity: 0.8;
+}
+
+.age-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  padding: 15px 40px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-yes {
+  background: #39ff14;
+  color: #0a0a0a;
+}
+
+.btn-yes:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.6);
+}
+
+.btn-no {
+  background: #333;
+  color: #fff;
+}
+
+.btn-no:hover {
+  background: #444;
+}
+
+/* Avatar Creator */
+.avatar-creator {
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+.avatar-creator h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #39ff14;
+}
+
+.avatar-preview {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 2rem;
+  position: relative;
+}
+
+.avatar-display {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.avatar-body, .avatar-hair, .avatar-top, .avatar-bottom, .avatar-face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.avatar-body {
+  background: #ffdbac;
+  border-radius: 50% 50% 45% 45%;
+  width: 120px;
+  height: 160px;
+  left: 40px;
+  top: 20px;
+}
+
+.avatar-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.avatar-eye {
+  width: 15px;
+  height: 15px;
+  background: #000;
+  border-radius: 50%;
+}
+
+.avatar-hair {
+  width: 130px;
+  height: 60px;
+  background: #333;
+  border-radius: 50% 50% 0 0;
+  left: 35px;
+  top: 15px;
+}
+
+.avatar-top {
+  width: 140px;
+  height: 80px;
+  background: #39ff14;
+  left: 30px;
+  top: 140px;
+  border-radius: 10px 10px 0 0;
+}
+
+.customization-panel {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.custom-section {
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+.custom-section h3 {
+  font-family: 'Rajdhani', sans-serif;
+  color: #39ff14;
+  margin-bottom: 1rem;
+}
+
+.color-options, .style-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.color-btn, .style-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.color-btn:hover, .style-btn:hover {
+  transform: scale(1.1);
+}
+
+.color-btn.active, .style-btn.active {
+  border-color: #39ff14;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+}
+
+.style-btn {
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.btn-save {
+  display: block;
+  margin: 2rem auto;
+  background: #ffd700;
+  color: #0a0a0a;
+}
+
+/* Main Hub */
+.main-hub {
+  padding: 20px;
+  text-align: center;
+}
+
+.hub-header {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.points-display {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(57, 255, 20, 0.1);
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 2px solid #39ff14;
+  font-weight: 700;
+}
+
+.avatar-hub {
+  width: 250px;
+  height: 250px;
+  margin: 2rem auto;
+  position: relative;
+}
+
+.countdown-ring {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 290px;
+  height: 290px;
+}
+
+.countdown-timer {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  margin: 2rem 0;
+  color: #ffd700;
+}
+
+.timezone-info {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.celebration {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(57, 255, 20, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: pulse 0.5s ease-in-out;
+}
+
+.celebration.active {
+  display: flex;
+}
+
+.celebration h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 4rem;
+  color: #39ff14;
+  text-shadow: 0 0 30px rgba(57, 255, 20, 0.8);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Worlds Grid */
+.worlds-screen {
+  padding: 20px;
+}
+
+.worlds-screen h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #39ff14;
+}
+
+.worlds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.world-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(57, 255, 20, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.world-card:hover {
+  transform: translateY(-5px);
+  border-color: #39ff14;
+  box-shadow: 0 10px 30px rgba(57, 255, 20, 0.3);
+}
+
+.world-card.live {
+  border-color: #39ff14;
+  background: rgba(57, 255, 20, 0.1);
+}
+
+.world-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.world-flag {
+  font-size: 2rem;
+}
+
+.world-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.world-time {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.world-status {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.world-status.live {
+  background: #39ff14;
+  color: #0a0a0a;
+}
+
+.world-status.waiting {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.world-users {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+.btn-join {
+  width: 100%;
+  padding: 12px;
+  background: #39ff14;
+  color: #0a0a0a;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-join:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.btn-join:not(:disabled):hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+/* World Room */
+.world-room {
+  padding: 20px;
+}
+
+.room-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.room-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  color: #39ff14;
+  margin-bottom: 0.5rem;
+}
+
+.room-timer {
+  font-size: 1.2rem;
+  color: #ffd700;
+}
+
+.room-view {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(57, 255, 20, 0.2);
+  border-radius: 15px;
+  padding: 30px;
+  min-height: 300px;
+  margin-bottom: 2rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.room-avatar {
+  text-align: center;
+}
+
+.room-avatar-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+  animation: bob 2s ease-in-out infinite;
+}
+
+.room-avatar.player .room-avatar-circle {
+  border: 3px solid #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.room-username {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.chat-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(57, 255, 20, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.chat-message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.chat-username {
+  color: #39ff14;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.chat-input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(57, 255, 20, 0.2);
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-send {
+  padding: 12px 25px;
+  background: #39ff14;
+  color: #0a0a0a;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-checkin {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 1rem;
+  padding: 20px;
+  background: linear-gradient(135deg, #39ff14 0%, #2acc00 100%);
+  color: #0a0a0a;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-checkin:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 40px rgba(57, 255, 20, 0.5);
+}
+
+.btn-back {
+  display: block;
+  margin: 0 auto;
+  padding: 12px 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(57, 255, 20, 0.3);
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Drip Store */
+.drip-store {
+  padding: 20px;
+}
+
+.drip-store h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ffd700;
+}
+
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.store-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.store-item:hover {
+  transform: translateY(-5px);
+  border-color: #ffd700;
+}
+
+.store-item.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.store-item.owned {
+  border-color: #39ff14;
+}
+
+.item-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-name {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.item-price {
+  color: #ffd700;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.item-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px 8px;
+  background: #39ff14;
+  color: #0a0a0a;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* Profile */
+.profile-screen {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-screen h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #39ff14;
+}
+
+.profile-avatar {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 2rem;
+}
+
+.profile-info {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(57, 255, 20, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 2rem;
+}
+
+.profile-username {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.profile-username input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(57, 255, 20, 0.3);
+  border-radius: 10px;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.stat-box {
+  text-align: center;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.stat-value {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  color: #39ff14;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.profile-badges {
+  margin-top: 1.5rem;
+}
+
+.profile-badges h3 {
+  font-family: 'Rajdhani', sans-serif;
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 10px;
+}
+
+.badge {
+  padding: 10px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid #ffd700;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.btn-edit-avatar {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: #39ff14;
+  color: #0a0a0a;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 2px solid rgba(57, 255, 20, 0.2);
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 0;
+  z-index: 1000;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.nav-item.active {
+  opacity: 1;
+  color: #39ff14;
+}
+
+.nav-icon {
+  font-size: 1.5rem;
+}
+
+.nav-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.points-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: rgba(57, 255, 20, 0.95);
+  color: #0a0a0a;
+  padding: 30px 50px;
+  border-radius: 20px;
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Rajdhani', sans-serif;
+  z-index: 10000;
+  box-shadow: 0 20px 60px rgba(57, 255, 20, 0.6);
+  transition: all 0.3s ease;
+}
+
+.points-popup.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(57, 255, 20, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(57, 255, 20, 0.5);
+}
+</style>
+</head>
+<body>
+
+<!-- Age Gate -->
+<div class="screen age-gate active" id="ageGate">
+  <div>
+    <h1>🌿 420 WORLDS</h1>
+    <p>It's Always 4:20 Somewhere</p>
+    <p style="font-size: 1.5rem; margin: 2rem 0;">Are you 21 or older?</p>
+    <div class="age-buttons">
+      <button class="btn btn-yes" onclick="verifyAge(true)">Yes</button>
+      <button class="btn btn-no" onclick="verifyAge(false)">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- Avatar Creator -->
+<div class="screen avatar-creator" id="avatarCreator">
+  <h2>Create Your Avatar</h2>
+  
+  <div class="avatar-preview">
+    <div class="avatar-display" id="avatarPreview">
+      <div class="avatar-hair" id="previewHair"></div>
+      <div class="avatar-body" id="previewBody"></div>
+      <div class="avatar-face">
+        <div class="avatar-eye"></div>
+        <div class="avatar-eye"></div>
+      </div>
+      <div class="avatar-top" id="previewTop"></div>
+    </div>
+  </div>
+
+  <div class="customization-panel">
+    <div class="custom-section">
+      <h3>Skin Tone</h3>
+      <div class="color-options">
+        <div class="color-btn active" style="background: #ffdbac" onclick="setSkin('#ffdbac')"></div>
+        <div class="color-btn" style="background: #f1c27d" onclick="setSkin('#f1c27d')"></div>
+        <div class="color-btn" style="background: #e0ac69" onclick="setSkin('#e0ac69')"></div>
+        <div class="color-btn" style="background: #c68642" onclick="setSkin('#c68642')"></div>
+        <div class="color-btn" style="background: #8d5524" onclick="setSkin('#8d5524')"></div>
+        <div class="color-btn" style="background: #6b4423" onclick="setSkin('#6b4423')"></div>
+      </div>
+    </div>
+
+    <div class="custom-section">
+      <h3>Hair Color</h3>
+      <div class="color-options">
+        <div class="color-btn active" style="background: #333" onclick="setHair('#333')"></div>
+        <div class="color-btn" style="background: #8b4513" onclick="setHair('#8b4513')"></div>
+        <div class="color-btn" style="background: #daa520" onclick="setHair('#daa520')"></div>
+        <div class="color-btn" style="background: #ff6347" onclick="setHair('#ff6347')"></div>
+        <div class="color-btn" style="background: #9370db" onclick="setHair('#9370db')"></div>
+        <div class="color-btn" style="background: #39ff14" onclick="setHair('#39ff14')"></div>
+      </div>
+    </div>
+
+    <div class="custom-section">
+      <h3>Outfit Color</h3>
+      <div class="color-options">
+        <div class="color-btn active" style="background: #39ff14" onclick="setOutfit('#39ff14')"></div>
+        <div class="color-btn" style="background: #ffd700" onclick="setOutfit('#ffd700')"></div>
+        <div class="color-btn" style="background: #ff4500" onclick="setOutfit('#ff4500')"></div>
+        <div class="color-btn" style="background: #1e90ff" onclick="setOutfit('#1e90ff')"></div>
+        <div class="color-btn" style="background: #ff1493" onclick="setOutfit('#ff1493')"></div>
+        <div class="color-btn" style="background: #9370db" onclick="setOutfit('#9370db')"></div>
+        <div class="color-btn" style="background: #333" onclick="setOutfit('#333')"></div>
+        <div class="color-btn" style="background: #fff" onclick="setOutfit('#fff')"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-save" onclick="saveAvatar()">Enter 420 Worlds</button>
+</div>
+
+<!-- Main Hub -->
+<div class="screen main-hub" id="mainHub">
+  <div class="hub-header">
+    <div class="points-display" id="pointsDisplay">💨 420</div>
+    <h2 style="font-family: 'Rajdhani', sans-serif; font-size: 2.5rem; color: #39ff14;">Your World</h2>
+  </div>
+
+  <div class="avatar-hub">
+    <svg class="countdown-ring" viewBox="0 0 290 290">
+      <circle cx="145" cy="145" r="140" fill="none" stroke="rgba(57,255,20,0.1)" stroke-width="8"/>
+      <circle id="progressRing" cx="145" cy="145" r="140" fill="none" stroke="#39ff14" stroke-width="8" 
+              stroke-dasharray="879.6" stroke-dashoffset="879.6" 
+              style="transition: stroke-dashoffset 1s linear, stroke 0.5s; transform: rotate(-90deg); transform-origin: center;"/>
+    </svg>
+    <div class="avatar-display" style="width: 200px; height: 200px; margin: 45px auto;" id="hubAvatar">
+      <div class="avatar-hair" style="background: #333"></div>
+      <div class="avatar-body" style="background: #ffdbac"></div>
+      <div class="avatar-face">
+        <div class="avatar-eye"></div>
+        <div class="avatar-eye"></div>
+      </div>
+      <div class="avatar-top" style="background: #39ff14"></div>
+    </div>
+  </div>
+
+  <div class="countdown-timer" id="countdownTimer">Next 4:20 in: --:--:--</div>
+  <div class="timezone-info" id="timezoneInfo">🌍 Detecting timezone...</div>
+</div>
+
+<!-- Celebration Overlay -->
+<div class="celebration" id="celebration">
+  <h1>🔥 IT'S 4:20!! 🔥</h1>
+</div>
+
+<!-- Worlds Grid -->
+<div class="screen worlds-screen" id="worldsScreen">
+  <h2>🌍 420 Worlds</h2>
+  <div class="worlds-grid" id="worldsGrid"></div>
+</div>
+
+<!-- World Room -->
+<div class="screen world-room" id="worldRoom">
+  <div class="room-header">
+    <button class="btn-back" onclick="leaveRoom()">← Back to Worlds</button>
+    <h2 class="room-title" id="roomTitle">🇺🇸 New York World</h2>
+    <div class="room-timer" id="roomTimer">Room closes in: 15:00</div>
+  </div>
+
+  <div class="room-view" id="roomView"></div>
+
+  <button class="btn btn-checkin" onclick="checkIn()">✓ CHECK IN (+420 💨)</button>
+
+  <div class="chat-box" id="chatBox"></div>
+  
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Say something..." maxlength="100">
+    <button class="btn-send" onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<!-- Drip Store -->
+<div class="screen drip-store" id="dripStore">
+  <h2>👗 Drip Store</h2>
+  <div class="store-grid" id="storeGrid"></div>
+</div>
+
+<!-- Profile -->
+<div class="screen profile-screen" id="profileScreen">
+  <h2>Your Profile</h2>
+  
+  <div class="profile-avatar">
+    <div class="avatar-display" id="profileAvatar">
+      <div class="avatar-hair" style="background: #333"></div>
+      <div class="avatar-body" style="background: #ffdbac"></div>
+      <div class="avatar-face">
+        <div class="avatar-eye"></div>
+        <div class="avatar-eye"></div>
+      </div>
+      <div class="avatar-top" style="background: #39ff14"></div>
+    </div>
+  </div>
+
+  <div class="profile-info">
+    <div class="profile-username">
+      <input type="text" id="usernameInput" value="Player420" maxlength="20">
+    </div>
+
+    <div class="profile-stats">
+      <div class="stat-box">
+        <div class="stat-value" id="profilePoints">420</div>
+        <div class="stat-label">Weed Points</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="profileStreak">0</div>
+        <div class="stat-label">🔥 Day Streak</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="profileWorlds">0</div>
+        <div class="stat-label">Worlds Visited</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="profileCheckins">0</div>
+        <div class="stat-label">Total Check-ins</div>
+      </div>
+    </div>
+
+    <div class="profile-badges">
+      <h3>🏅 Badges Earned</h3>
+      <div class="badges-grid" id="badgesGrid">
+        <div style="opacity: 0.3; text-align: center; grid-column: 1/-1; padding: 20px;">No badges yet. Visit worlds to earn badges!</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-edit-avatar" onclick="editAvatar()">Edit Avatar</button>
+</div>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+  <div class="nav-item active" onclick="navigate('mainHub')">
+    <div class="nav-icon">🏠</div>
+    <div class="nav-label">Home</div>
+  </div>
+  <div class="nav-item" onclick="navigate('worldsScreen')">
+    <div class="nav-icon">🌍</div>
+    <div class="nav-label">Worlds</div>
+  </div>
+  <div class="nav-item" onclick="navigate('dripStore')">
+    <div class="nav-icon">👗</div>
+    <div class="nav-label">Drip</div>
+  </div>
+  <div class="nav-item" onclick="navigate('profileScreen')">
+    <div class="nav-icon">👤</div>
+    <div class="nav-label">Profile</div>
+  </div>
+</nav>
+
+<!-- Points Popup -->
+<div class="points-popup" id="pointsPopup">+420 💨</div>
+
+<script>
+// State Management
+let state = {
+  ageVerified: false,
+  avatar: {
+    skin: '#ffdbac',
+    hair: '#333',
+    outfit: '#39ff14'
+  },
+  username: 'Player420',
+  weedPoints: 420,
+  inventory: [],
+  equippedItems: [],
+  checkInStreak: 0,
+  worldsVisited: 0,
+  totalCheckins: 0,
+  badges: [],
+  lastCheckIn: null,
+  currentWorld: null
+};
+
+// Load state from localStorage
+function loadState() {
+  const saved = localStorage.getItem('420WorldsState');
+  if (saved) {
+    state = {...state, ...JSON.parse(saved)};
+  }
+}
+
+function saveState() {
+  localStorage.setItem('420WorldsState', JSON.stringify(state));
+}
+
+// Age Gate
+function verifyAge(isOver21) {
+  console.log('verifyAge called with:', isOver21);
+  try {
+    if (!isOver21) {
+      alert('Sorry, you must be 21 or older to enter 420 Worlds.');
+      return;
+    }
+    state.ageVerified = true;
+    saveState();
+    console.log('State saved, hiding age gate');
+    const ageGate = document.getElementById('ageGate');
+    const avatarCreator = document.getElementById('avatarCreator');
+    if (ageGate) ageGate.classList.remove('active');
+    if (avatarCreator) avatarCreator.classList.add('active');
+    console.log('Age verification complete');
+  } catch (error) {
+    console.error('Error in verifyAge:', error);
+    alert('Error: ' + error.message);
+  }
+}
+
+// Make verifyAge globally accessible
+window.verifyAge = verifyAge;
+
+// Avatar Customization
+function setSkin(color) {
+  state.avatar.skin = color;
+  document.getElementById('previewBody').style.background = color;
+  document.querySelectorAll('.custom-section')[0].querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function setHair(color) {
+  state.avatar.hair = color;
+  document.getElementById('previewHair').style.background = color;
+  document.querySelectorAll('.custom-section')[1].querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function setOutfit(color) {
+  state.avatar.outfit = color;
+  document.getElementById('previewTop').style.background = color;
+  document.querySelectorAll('.custom-section')[2].querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function saveAvatar() {
+  saveState();
+  updateAvatarDisplays();
+  navigate('mainHub');
+  startCountdown();
+  initWorlds();
+  initStore();
+}
+
+function updateAvatarDisplays() {
+  ['hubAvatar', 'profileAvatar'].forEach(id => {
+    const avatar = document.getElementById(id);
+    if (avatar) {
+      avatar.querySelector('.avatar-hair').style.background = state.avatar.hair;
+      avatar.querySelector('.avatar-body').style.background = state.avatar.skin;
+      avatar.querySelector('.avatar-top').style.background = state.avatar.outfit;
+    }
+  });
+  updateProfile();
+}
+
+function editAvatar() {
+  navigate('avatarCreator');
+}
+
+// Navigation
+function navigate(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+  
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+  if (screenId === 'mainHub') document.querySelectorAll('.nav-item')[0].classList.add('active');
+  if (screenId === 'worldsScreen') document.querySelectorAll('.nav-item')[1].classList.add('active');
+  if (screenId === 'dripStore') document.querySelectorAll('.nav-item')[2].classList.add('active');
+  if (screenId === 'profileScreen') document.querySelectorAll('.nav-item')[3].classList.add('active');
+  
+  if (screenId === 'profileScreen') updateProfile();
+}
+
+// Countdown Timer
+function startCountdown() {
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
+
+function getNext420() {
+  const now = new Date();
+  const next420 = new Date(now);
+  next420.setHours(16, 20, 0, 0);
+  
+  if (now.getHours() > 16 || (now.getHours() === 16 && now.getMinutes() >= 20)) {
+    next420.setDate(next420.getDate() + 1);
+  }
+  
+  return next420;
+}
+
+function updateCountdown() {
+  const now = new Date();
+  const next420 = getNext420();
+  const diff = next420 - now;
+  
+  if (diff <= 0) {
+    triggerCelebration();
+    return;
+  }
+  
+  const hours = Math.floor(diff / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+  
+  document.getElementById('countdownTimer').textContent = 
+    `Next 4:20 in: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  document.getElementById('timezoneInfo').textContent = `🌍 ${timezone.split('/')[1] || timezone} | Next 4:20: 4:20 PM`;
+  
+  // Update ring
+  const totalSeconds = 24 * 3600;
+  const remainingSeconds = Math.floor(diff / 1000);
+  const progress = 1 - (remainingSeconds / totalSeconds);
+  const circumference = 2 * Math.PI * 140;
+  const offset = circumference * (1 - progress);
+  
+  const ring = document.getElementById('progressRing');
+  ring.style.strokeDashoffset = offset;
+  
+  if (diff < 300000) { // Under 5 minutes
+    ring.style.stroke = '#ffd700';
+  } else {
+    ring.style.stroke = '#39ff14';
+  }
+  
+  document.getElementById('pointsDisplay').textContent = `💨 ${state.weedPoints}`;
+}
+
+function triggerCelebration() {
+  document.getElementById('celebration').classList.add('active');
+  setTimeout(() => {
+    document.getElementById('celebration').classList.remove('active');
+  }, 3000);
+}
+
+// Worlds System
+const worlds = [
+  { name: 'New York', flag: '🇺🇸', timezone: 'America/New_York', offset: -5 },
+  { name: 'Los Angeles', flag: '🇺🇸', timezone: 'America/Los_Angeles', offset: -8 },
+  { name: 'Chicago', flag: '🇺🇸', timezone: 'America/Chicago', offset: -6 },
+  { name: 'Denver', flag: '🇺🇸', timezone: 'America/Denver', offset: -7 },
+  { name: 'Toronto', flag: '🇨🇦', timezone: 'America/Toronto', offset: -5 },
+  { name: 'London', flag: '🇬🇧', timezone: 'Europe/London', offset: 0 },
+  { name: 'Amsterdam', flag: '🇳🇱', timezone: 'Europe/Amsterdam', offset: 1 },
+  { name: 'Berlin', flag: '🇩🇪', timezone: 'Europe/Berlin', offset: 1 },
+  { name: 'Tokyo', flag: '🇯🇵', timezone: 'Asia/Tokyo', offset: 9 },
+  { name: 'Sydney', flag: '🇦🇺', timezone: 'Australia/Sydney', offset: 11 },
+  { name: 'Mexico City', flag: '🇲🇽', timezone: 'America/Mexico_City', offset: -6 },
+  { name: 'São Paulo', flag: '🇧🇷', timezone: 'America/Sao_Paulo', offset: -3 }
+];
+
+function initWorlds() {
+  const grid = document.getElementById('worldsGrid');
+  grid.innerHTML = '';
+  
+  worlds.forEach(world => {
+    const now = new Date();
+    const worldTime = new Date(now.toLocaleString('en-US', { timeZone: world.timezone }));
+    const hour = worldTime.getHours();
+    const minute = worldTime.getMinutes();
+    const isLive = hour === 16 && minute >= 5 && minute <= 35; // 15 min before/after 4:20
+    
+    const next420 = new Date(worldTime);
+    next420.setHours(16, 20, 0, 0);
+    if (hour > 16 || (hour === 16 && minute > 35)) {
+      next420.setDate(next420.getDate() + 1);
+    }
+    const timeTo420 = next420 - worldTime;
+    const hoursTo = Math.floor(timeTo420 / 3600000);
+    const minsTo = Math.floor((timeTo420 % 3600000) / 60000);
+    
+    const card = document.createElement('div');
+    card.className = `world-card ${isLive ? 'live' : ''}`;
+    card.innerHTML = `
+      <div class="world-header">
+        <div class="world-flag">${world.flag}</div>
+        <div class="world-name">${world.name} World</div>
+      </div>
+      <div class="world-time">${worldTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</div>
+      <div class="world-status ${isLive ? 'live' : 'waiting'}">
+        ${isLive ? '🟢 LIVE - 4:20 NOW!' : `⏳ Next 4:20 in ${hoursTo}h ${minsTo}m`}
+      </div>
+      <div class="world-users">👥 ${Math.floor(Math.random() * 2000) + 100} blazing</div>
+      <button class="btn-join" ${!isLive ? 'disabled' : ''} onclick="joinWorld('${world.name}', '${world.flag}')">
+        ${isLive ? 'JOIN WORLD' : 'Not 4:20 Yet'}
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+  
+  setTimeout(initWorlds, 10000); // Refresh every 10 seconds
+}
+
+function joinWorld(worldName, worldFlag) {
+  state.currentWorld = worldName;
+  document.getElementById('roomTitle').textContent = `${worldFlag} ${worldName} World`;
+  
+  // Generate room avatars
+  const roomView = document.getElementById('roomView');
+  roomView.innerHTML = '';
+  
+  // Add player
+  const playerAvatar = document.createElement('div');
+  playerAvatar.className = 'room-avatar player';
+  playerAvatar.innerHTML = `
+    <div class="room-avatar-circle" style="background: ${state.avatar.outfit}"></div>
+    <div class="room-username">${state.username} (You)</div>
+  `;
+  roomView.appendChild(playerAvatar);
+  
+  // Add other players
+  const otherPlayers = ['SmokeKing420', 'GreenQueen', 'HighRoller', 'BlazeMaster', 'Dank420', 'PuffPuff', 'MaryJane'];
+  const colors = ['#ff4500', '#1e90ff', '#ff1493', '#ffd700', '#9370db', '#39ff14', '#ff6347'];
+  
+  for (let i = 0; i < 7; i++) {
+    const avatar = document.createElement('div');
+    avatar.className = 'room-avatar';
+    avatar.innerHTML = `
+      <div class="room-avatar-circle" style="background: ${colors[i]}"></div>
+      <div class="room-username">${otherPlayers[i]}</div>
+    `;
+    roomView.appendChild(avatar);
+  }
+  
+  // Initialize chat
+  const chatMsgs = [
+    { user: 'SmokeKing420', text: 'yo who else is blazed rn 🔥' },
+    { user: 'GreenQueen', text: 'just checked in from Amsterdam 🇳🇱' },
+    { user: 'HighRoller', text: 'this app is hard fr 🍃' },
+    { user: 'BlazeMaster', text: 'about to hit this new strain' },
+    { user: 'Dank420', text: '420 worldwide baby 🌍' }
+  ];
+  
+  const chatBox = document.getElementById('chatBox');
+  chatBox.innerHTML = '';
+  chatMsgs.forEach(msg => {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'chat-message';
+    msgDiv.innerHTML = `<span class="chat-username">${msg.user}:</span>${msg.text}`;
+    chatBox.appendChild(msgDiv);
+  });
+  
+  // Auto-add messages
+  setInterval(() => {
+    const randomMsgs = ['💨💨💨', 'vibes are immaculate', 'pass that energy', 'feeling elevated rn', 'this community 🔥'];
+    const randomUser = otherPlayers[Math.floor(Math.random() * otherPlayers.length)];
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'chat-message';
+    msgDiv.innerHTML = `<span class="chat-username">${randomUser}:</span>${randomMsgs[Math.floor(Math.random() * randomMsgs.length)]}`;
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 5000);
+  
+  // Room timer
+  let roomTime = 900; // 15 minutes
+  const timerInterval = setInterval(() => {
+    roomTime--;
+    const mins = Math.floor(roomTime / 60);
+    const secs = roomTime % 60;
+    document.getElementById('roomTimer').textContent = `Room closes in: ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    if (roomTime <= 0) {
+      clearInterval(timerInterval);
+      leaveRoom();
+      alert('Room time expired! Join another world at 4:20.');
+    }
+  }, 1000);
+  
+  navigate('worldRoom');
+}
+
+function leaveRoom() {
+  state.currentWorld = null;
+  navigate('worldsScreen');
+}
+
+function checkIn() {
+  state.weedPoints += 420;
+  state.totalCheckins++;
+  
+  const worldIndex = worlds.findIndex(w => w.name === state.currentWorld);
+  if (worldIndex !== -1 && !state.worldsVisited.includes(state.currentWorld)) {
+    state.worldsVisited++;
+    const badge = worlds[worldIndex].flag;
+    if (!state.badges.includes(badge)) {
+      state.badges.push(badge);
+    }
+  }
+  
+  // Check streak
+  const today = new Date().toDateString();
+  if (state.lastCheckIn !== today) {
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (state.lastCheckIn === yesterday) {
+      state.checkInStreak++;
+    } else {
+      state.checkInStreak = 1;
+    }
+    state.lastCheckIn = today;
+  }
+  
+  saveState();
+  updateCountdown();
+  updateProfile();
+  
+  // Show points popup
+  const popup = document.getElementById('pointsPopup');
+  popup.classList.add('show');
+  setTimeout(() => popup.classList.remove('show'), 1500);
+  
+  // Add chat message
+  const chatBox = document.getElementById('chatBox');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'chat-message';
+  msgDiv.innerHTML = `<span class="chat-username">${state.username}:</span>Just checked in! 🔥`;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  
+  const chatBox = document.getElementById('chatBox');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'chat-message';
+  msgDiv.innerHTML = `<span class="chat-username">${state.username}:</span>${text}`;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  input.value = '';
+}
+
+// Store
+const storeItems = [
+  { id: 'chain', name: 'Gold Chain', price: 420, icon: '⛓️', badge: null },
+  { id: 'diamond-chain', name: 'Diamond Chain', price: 840, icon: '💎', badge: null },
+  { id: 'cookies-cap', name: 'Cookies Cap', price: 840, icon: '🧢', badge: null },
+  { id: 'beanie', name: 'Black Beanie', price: 420, icon: '🎩', badge: null },
+  { id: 'crown', name: 'Crown', price: 2100, icon: '👑', badge: '⭐ RARE' },
+  { id: 'hoodie', name: 'Green Hoodie', price: 630, icon: '🧥', badge: null },
+  { id: 'jacket', name: 'Leather Jacket', price: 1260, icon: '🧥', badge: null },
+  { id: 'jeans', name: 'Ripped Jeans', price: 630, icon: '👖', badge: null },
+  { id: 'sneakers', name: 'Designer Sneakers', price: 1050, icon: '👟', badge: null },
+  { id: 'blunt', name: 'Blunt Accessory', price: 420, icon: '🚬', badge: null },
+  { id: 'sunglasses', name: 'Sunglasses', price: 420, icon: '🕶️', badge: null },
+  { id: 'smoke-trail', name: 'Smoke Trail', price: 1680, icon: '💨', badge: '⭐' },
+  { id: 'cali-badge', name: 'California Badge', price: 420, icon: '🏅', badge: null },
+  { id: 'nyc-badge', name: 'NYC Badge', price: 420, icon: '🏅', badge: null },
+  { id: 'amsterdam-badge', name: 'Amsterdam Badge', price: 840, icon: '🏅', badge: null },
+  { id: 'tokyo-badge', name: 'Tokyo Badge', price: 840, icon: '🏅', badge: null },
+  { id: 'vip-crown', name: 'VIP Crown', price: 4200, icon: '👑', badge: '⭐⭐ LEGENDARY' },
+  { id: 'glow', name: 'Glow Aura', price: 2520, icon: '✨', badge: '⭐' },
+  { id: 'pixel-glasses', name: 'Pixel Glasses', price: 630, icon: '👓', badge: null },
+  { id: 'watch', name: 'Gold Watch', price: 1050, icon: '⌚', badge: null }
+];
+
+function initStore() {
+  const grid = document.getElementById('storeGrid');
+  grid.innerHTML = '';
+  
+  storeItems.forEach(item => {
+    const owned = state.inventory.includes(item.id);
+    const canAfford = state.weedPoints >= item.price;
+    
+    const itemDiv = document.createElement('div');
+    itemDiv.className = `store-item ${owned ? 'owned' : (!canAfford ? 'locked' : '')}`;
+    itemDiv.innerHTML = `
+      ${item.badge ? `<div class="item-badge">${item.badge}</div>` : ''}
+      ${owned ? '<div class="item-badge" style="background: #39ff14">OWNED</div>' : ''}
+      <div class="item-icon">${item.icon}</div>
+      <div class="item-name">${item.name}</div>
+      <div class="item-price">${owned ? 'EQUIPPED' : `💨 ${item.price}`}</div>
+    `;
+    
+    if (!owned && canAfford) {
+      itemDiv.onclick = () => buyItem(item);
+    }
+    
+    grid.appendChild(itemDiv);
+  });
+}
+
+function buyItem(item) {
+  if (state.weedPoints < item.price) {
+    alert('Not enough weed points!');
+    return;
+  }
+  
+  if (confirm(`Buy ${item.name} for ${item.price} weed points?`)) {
+    state.weedPoints -= item.price;
+    state.inventory.push(item.id);
+    saveState();
+    initStore();
+    updateCountdown();
+    updateProfile();
+    alert(`${item.name} purchased! Check your profile.`);
+  }
+}
+
+// Profile
+function updateProfile() {
+  document.getElementById('profilePoints').textContent = state.weedPoints;
+  document.getElementById('profileStreak').textContent = state.checkInStreak;
+  document.getElementById('profileWorlds').textContent = state.worldsVisited;
+  document.getElementById('profileCheckins').textContent = state.totalCheckins;
+  document.getElementById('usernameInput').value = state.username;
+  
+  const badgesGrid = document.getElementById('badgesGrid');
+  if (state.badges.length === 0) {
+    badgesGrid.innerHTML = '<div style="opacity: 0.3; text-align: center; grid-column: 1/-1; padding: 20px;">No badges yet. Visit worlds to earn badges!</div>';
+  } else {
+    badgesGrid.innerHTML = '';
+    state.badges.forEach(badge => {
+      const badgeDiv = document.createElement('div');
+      badgeDiv.className = 'badge';
+      badgeDiv.textContent = badge;
+      badgesGrid.appendChild(badgeDiv);
+    });
+  }
+}
+
+// Username update
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('usernameInput')?.addEventListener('change', (e) => {
+    state.username = e.target.value.trim() || 'Player420';
+    saveState();
+  });
+});
+
+// Chat enter key
+document.getElementById('chatInput')?.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+
+// Initialize
+console.log('420 Worlds loading...');
+loadState();
+console.log('State loaded:', state);
+
+// Add event listeners as backup for age gate buttons
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM loaded, wiring up age buttons');
+  const yesBtn = document.querySelector('.btn-yes');
+  const noBtn = document.querySelector('.btn-no');
+  
+  if (yesBtn) {
+    yesBtn.addEventListener('click', () => {
+      console.log('Yes button clicked (event listener)');
+      verifyAge(true);
+    });
+    // Also try touch events for mobile
+    yesBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      console.log('Yes button touched');
+      verifyAge(true);
+    });
+  }
+  
+  if (noBtn) {
+    noBtn.addEventListener('click', () => verifyAge(false));
+    noBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      verifyAge(false);
+    });
+  }
+  
+  console.log('Age buttons wired up');
+});
+
+if (state.ageVerified) {
+  console.log('Already age verified, skipping gate');
+  document.getElementById('ageGate').classList.remove('active');
+  if (state.avatar.skin) {
+    navigate('mainHub');
+    updateAvatarDisplays();
+    startCountdown();
+    initWorlds();
+    initStore();
+  } else {
+    document.getElementById('avatarCreator').classList.add('active');
+  }
+} else {
+  console.log('Showing age gate');
+}
+</script>
+
+</body>
+</html>
