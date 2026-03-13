@@ -96,6 +96,35 @@
 
 **Philosophy:** Your avatar IS your identity. Gorillaz/chibi anime hybrid style with premium drip culture.
 
+**Art Direction (TARGET STYLE):**
+
+![Reference Style](assets/concept-art/alex-reference-style.png)
+
+*Reference image: Illustrated character card style by Alex*
+
+**Visual Requirements:**
+- **Style:** Illustrated character cards (NOT simple CSS shapes or stick figures)
+- **Aesthetic:** Gorillaz meets chibi anime - stylized but detailed
+- **Character proportions:** Slightly chibi (larger head, shorter body) but not overly cute
+- **Backgrounds:** Full illustrated scenes (wood floors, urban streets, nature settings)
+- **Clothing:** Detailed with folds, textures, and drip culture fashion (streetwear, chains, designer items)
+- **Facial features:** Expressive eyes, defined noses/mouths, personality
+- **Color palette:** Rich, saturated colors with good contrast
+- **Line work:** Clean outlines, professional illustration quality
+- **Shading:** Simple cel-shading or flat color with highlights
+
+**Technical Implementation:**
+- Each layer is a transparent PNG (512x512px or higher)
+- Layers stack in Photoshop/Procreate fashion
+- Canvas composites them in real-time based on user selection
+- Similar to: Picrew, Gaia Online, Neopets (but with higher art quality)
+
+**NOT acceptable for MVP:**
+- ❌ Basic CSS circles and rectangles
+- ❌ Emoji-based characters
+- ❌ Stick figures or simple shapes
+- ❌ Low-effort placeholder art
+
 **Customization Layers (MVP):**
 1. **Background** (3 options)
    - Wood floor

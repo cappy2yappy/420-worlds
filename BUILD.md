@@ -23,6 +23,12 @@
 
 ### Priority 2: Avatar System Upgrade (Main Task)
 
+**⚠️ CRITICAL: Read GDD.md Section 2.3 for full art direction requirements**
+
+**Reference image:** `assets/concept-art/alex-reference-style.png`  
+**Target style:** Illustrated character cards (Gorillaz/chibi anime hybrid)  
+**NOT acceptable:** CSS shapes, emoji, stick figures, low-effort placeholders
+
 **Current state:** 
 Avatars are drawn with basic CSS:
 ```html
@@ -32,7 +38,7 @@ Avatars are drawn with basic CSS:
 ```
 
 **Target state:**
-Layered PNG system like Picrew/Gaia Online:
+Layered PNG system like Picrew/Gaia Online (but with illustrated art quality):
 ```
 Canvas layers (bottom to top):
 1. Background PNG
