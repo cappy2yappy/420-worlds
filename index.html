@@ -1094,7 +1094,8 @@ function verifyAge(isOver21) {
   console.log('verifyAge called with:', isOver21);
   try {
     if (!isOver21) {
-      alert('Sorry, you must be 21 or older to enter 420 Worlds.');
+      // Redirect to DARE.org charity partner
+      window.location.href = 'https://dare.org';
       return;
     }
     state.ageVerified = true;
@@ -1102,7 +1103,10 @@ function verifyAge(isOver21) {
     console.log('State saved, hiding age gate');
     const ageGate = document.getElementById('ageGate');
     const avatarCreator = document.getElementById('avatarCreator');
-    if (ageGate) ageGate.classList.remove('active');
+    if (ageGate) {
+      ageGate.style.display = 'none'; // Force hide
+      ageGate.classList.remove('active');
+    }
     if (avatarCreator) avatarCreator.classList.add('active');
     console.log('Age verification complete');
   } catch (error) {
