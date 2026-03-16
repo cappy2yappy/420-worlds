@@ -1,502 +1,488 @@
-# 420 Worlds - Mini-Games Design Document
+# 420 Worlds - Mini-Games Design Document (UPDATED)
 
-**Version:** 1.0  
-**Last Updated:** March 14, 2026  
-**Status:** In Development (All 5 for April 20 MVP)
+**Version:** 2.0  
+**Last Updated:** March 16, 2026  
+**Status:** Based on Alex's full questionnaire responses  
+**Launch Target:** April 20-27, 2026
 
 ---
 
 ## Overview
 
-Mini-games are playable **OUTSIDE** the 15-minute 4:20 window to fill time between sessions. They provide:
+Mini-games are playable **DURING OR OUTSIDE** the 15-minute 4:20 window (player's choice). They provide:
 - Weed points for the economy
-- Unlockable items for chat rooms
+- WoW-style loot (Common → Legendary items)
+- Unlockable items tradeable with other players
+- 30-minute cooldowns to prevent grinding
 - Skill-based progression
-- Entertainment during countdown periods
 
-**Design Philosophy:** Simple to learn, satisfying to master, rewarding to complete.
+**Design Philosophy:** Casual with a little edge. Simple to learn, satisfying to master.
+
+**Most Important Mini-Game (Alex Priority):** #5 Cleaning Game
 
 ---
 
 ## 1. Rolling Joints
 
 ### Concept
-A multi-step crafting game where you prepare joints to bring into chat rooms.
+A multi-step crafting game where you prepare joints (max 5) to bring into chat rooms and share with other players.
+
+### TWO MODES (Alex Update):
+1. **Timed Challenge** - Race against the clock for bonus points
+2. **No Pressure** - Chill mode, take your time
 
 ### Gameplay Steps
-1. **Take weed out of bag** - Tap/click to grab nugs
+1. **Take weed out of bag** - Tap/click to grab nugs from inventory
 2. **Grind weed** - Circular swipe or tap mechanic to fill grinder
 3. **Pack joint** - Drag weed into paper, timing-based rolling
-4. **Store joints** - Add to inventory
+4. **Store joints** - Add to inventory (max 5 for chat room use)
 
 ### Success Metrics
-- **Speed:** Faster rolling = bonus points
-- **Quality:** Perfect timing = "premium joint" (better chat room effects)
-- **Quantity:** Roll multiple joints in one session
+- **Perfect Timing** - Hit the sweet spot for premium joints
 
 ### Rewards
 - 100 weed points per joint rolled
-- Joints added to inventory (max 10 at a time)
+- Joints added to inventory (max 5 to bring into chat)
 - Perfect rolls unlock "Master Roller" badge
 
-### Chat Room Integration
-- Share joint with room = animated smoke effect on all avatars
-- Other players can "puff puff pass" (social emote chain)
-- Rare joints (gold paper, flavored wraps) = premium items
+### Chat Room Integration (Alex Confirmed):
+- **Share joint** with room = ALL players get:
+  - Smoke particles around avatar
+  - Eyes get redder
+  - Temporary buff
+- **Gifting system** - Can give joints to specific players
+- **Item variety** - Leave code open for other shareable items with buffs
 
-### UI/UX
-- Top-down view of rolling tray
-- Drag-and-drop mechanics
-- Visual feedback (weed fills grinder, paper wraps tightly)
-- Satisfying animations (spark the joint at the end)
+### Visual Effects (Alex Specified):
+- Smoke particles around avatar
+- Eyes progressively redden
+- NO speech bubbles or emotes
 
-### Technical Notes
-- HTML5 Canvas or SVG for drag interactions
-- localStorage to save joint inventory
-- Particle effects for smoke in chat room
+### Inventory Cap
+- Max 5 joints in chat room
+- Unlimited joint storage in main inventory
+
+### Cooldown
+- 30 minutes between plays (Alex universal rule for all mini-games)
 
 ---
 
 ## 2. Hotboxing Car
 
 ### Concept
-Tap rapidly to fill a car interior with smoke, earn a visual buff for your avatar.
+Stationary car interior - tap rapidly to fill with smoke, earn 1-hour "Reek" buff.
 
 ### Gameplay
-1. **Car interior view** - Dashboard, windshield, seats visible
+1. **Car interior view** - Dashboard, windshield, seats visible (stationary, NOT driving)
 2. **Tap mechanic** - Button looks like a lighter, tap to "light up"
-3. **Smoke fills interior** - Opacity increases with each tap
-4. **Success threshold** - Hit 100% smoke = hotbox complete
+3. **100 taps required** to max out smoke (Alex specified)
+4. **Smoke fills interior** - Opacity increases with each tap
 
-### Success Metrics
-- **Taps per second** - Faster = quicker completion
-- **Smoke density** - Visual meter shows progress (0-100%)
-- **Time limit** - 60 seconds to max out (or fail)
+### Success State
+- Hit 100 taps = hotbox complete
+- **1-HOUR buff activated** (Alex update: changed from 30 min)
+
+### Buff Details: "Reek" (Alex Specified)
+- **Visual:** Smoke animation on clothes (looks hot/steamy)
+- **Duration:** 1 hour real-time
+- **Badge:** First time completion unlocks "Hotboxer" badge
+- **Social:** Other players can see the smoke effect on your avatar
+
+### Animation (Alex Note)
+- If you recently hotboxed and have the buff, animation plays when entering chat room
+
+### Multiplayer
+- Solo only for MVP (Alex confirmed)
+- Future: multiplayer hotbox sessions
 
 ### Rewards
 - 250 weed points on completion
-- "Reek" buff: Avatar has smoke particles for 30 minutes
-- Unlocks "Hotboxer" badge
+- "Reek" buff (1 hour)
+- "Hotboxer" badge (first time)
 
-### Buff Details: "Reek"
-- **Visual:** Smoke trails/particles around avatar in chat rooms
-- **Duration:** 30 minutes real-time
-- **Social:** Other players can see the effect (flex)
-- **Stacking:** Can't stack multiple buffs (30-min cooldown)
-
-### Driving Mechanic (Phase 2 - Future)
-- After hotboxing, drive car to chat room location
-- Simple top-down driving (arrow keys or tilt controls)
-- Arrive at location = bonus points
-
-### UI/UX
-- Car interior illustrated background
-- Big center button (lighter graphic)
-- Smoke animation overlays window
-- Sound effects: lighter flick, inhale/exhale
-
-### Technical Notes
-- Tap counter with throttle (prevent cheating)
-- CSS opacity animations for smoke
-- Timer with visual countdown
+### Cooldown
+- 30 minutes
 
 ---
 
-## 3. Coppin' Weed
+## 3. Coppin' Weed (Alex Full Spec Update)
 
 ### Concept
-Two-part mini-game: call the weed man, then dap him up when he arrives.
+Multi-stage mini-game: pedal to corner → time jump → dap up seller → memory game
 
-### Part 1: Calling the Weed Man
-**Mechanic:** Rapid number dialing in intervals
+### Stage 1: Pedaling to Corner
+**Mechanic:** Tap screen rapidly to pedal bike faster
+- Faster taps = faster arrival
+- Visual: Character pedaling bike toward corner
 
-**Gameplay:**
-1. Phone screen appears with number pad
-2. Sequence of numbers flash briefly (e.g., "555-0420")
-3. You must dial the number FAST in correct order
-4. Each digit correct = progress bar fills
-5. Complete sequence = call connected
+### Stage 2: Timing the Jump
+**Mechanic:** Press button at perfect moment to jump off bike
+- Too early/late = lose speed bonus
+- Perfect timing = smooth dismount
 
-**Difficulty:**
-- Easy: 4-digit number, 10 seconds
-- Medium: 7-digit number, 8 seconds
-- Hard: 10-digit number, 5 seconds
-
-### Part 2: Dap Him Up (Timing Game)
+### Stage 3: Dap Up the Seller (Timing Game)
 **Mechanic:** Rhythm/timing challenge (Guitar Hero style)
+- Circles shrink toward center
+- Tap when circle aligns perfectly = successful dap
+- Visual: Hands meeting for dap
 
-**Gameplay:**
-1. Weed man appears on screen
-2. Circles shrink toward center (like osu! or Friday Night Funkin')
-3. Tap when circle aligns perfectly = successful dap
-4. 3 successful daps in a row = transaction complete
+### Stage 4: Memory Game (Calling the Weed Man)
+**Mechanic:** Remember and dial phone number
+- Number flashes on screen briefly (e.g., "555-0420")
+- Player must dial from memory
+- Faster = bonus points
 
-**Fail States:**
-- Miss the dap = lose points, can retry
-- Take too long = weed man leaves, game over
+### Success Path
+1. Pedal fast to corner
+2. Time perfect jump
+3. Successful dap (3 in a row)
+4. Dial number correctly
+= **Weed added to inventory for rolling joints**
+
+### Fail State (Alex Specified)
+- **Cops show up** if you fail any stage
+- Triggers "Hiding Weed from Cops" mini-game immediately
+- No points lost, just need to complete hiding game
 
 ### Rewards
 - 200 weed points on success
-- Weed added to inventory (used for rolling joints)
-- Rare items: "Designer Weed" (gold nugs) = 2x rolling speed
+- Weed added to inventory (used for rolling joints mini-game)
+- Rare drop: "Designer Weed" (gold nugs) = 2x rolling speed
 
-### UI/UX
-- Phone UI for dialing (realistic iOS/Android style)
-- Character animations for dap sequence
-- Street corner background (urban vibe)
+### Integration
+- Weed earned here **feeds into Rolling Joints** mini-game
+- Creates gameplay loop: Cop weed → Roll joints → Share in chat
 
-### Technical Notes
-- Input sequence validation
-- Timing hitboxes (generous for casual, tight for perfect)
-- Cooldown timer (can't spam the game)
+### Cooldown
+- 30 minutes
 
 ---
 
 ## 4. Hiding Weed from Cops
 
 ### Concept
-Stealth/timing game where you throw weed out the car window when cops aren't looking.
+Stealth/timing game triggered by failing "Coppin' Weed" OR as standalone mini-game.
+
+### Trigger Conditions (Alex Confirmed)
+1. **Fail Coppin' Weed** = cops show up automatically
+2. **Choose to play** = standalone mini-game selection
 
 ### Gameplay
-1. **Setup:** You get pulled over (random event trigger)
-2. **Cop position:** Officer walks around car, looking in windows
-3. **Distraction windows:** 2 moments where cop is distracted (looks away, talks on radio)
-4. **Your action:** Tap to throw weed out the window during distraction
-5. **Success:** Cop doesn't notice = you're clear
+1. **Cop walks around car** - looking in windows
+2. **2 random distraction windows** (RNG-based, Alex confirmed):
+   - Cop looks at phone (2-second window)
+   - Another car drives by (3-second window)
+3. **Your action:** Tap to throw weed out window **during distractions only**
+4. **Success:** Cop doesn't notice = you're clear
 
-### Distraction Events
-1. **Cop looks at phone** - 2-second window
-2. **Another car drives by** - 3-second window
+### Distraction Events (Random)
+- Cop looks at phone
+- Cop talks on radio
+- Another car passes
+- Pedestrian walks by
 
-### Fail States
-- Throw when cop is watching = busted (lose weed + points)
-- Don't throw in time = cop searches car, finds weed (bigger penalty)
+### Success Outcomes (Alex Specified)
+- **First time:** "Smooth Criminal" badge + snack item
+- **Repeat plays:** Snack item only (shareable in chat rooms)
+- **Keep your weed** (don't lose it)
 
-### Success Outcomes
-- **Perfect (both distractions used):** Keep weed + 300 bonus points + "Smooth Criminal" badge
-- **Good (threw during 1 distraction):** Keep weed, no bonus
-- **Fail:** Lose weed, lose 500 points, 10-min cooldown
+### Fail State (Alex Update)
+- **Nothing happens** - no penalties, no point loss
+- Just retry
 
-### UI/UX
+### Snack Item (New from Alex)
+- Shareable consumable in chat rooms
+- Gives temporary buff to recipients
+- Adds to social/gifting mechanics
+
+### Visual
 - Side-view of car + cop character
-- Visual cues for distractions (phone lights up, car passes by)
-- Tension-building music
+- Distraction cues (phone lights up, car passes by)
 - Quick-time button prompt (THROW!)
 
-### Technical Notes
-- Randomized distraction timing (not memorizable)
-- Animation states for cop (walking, looking, distracted)
-- Sound cues (radio chatter, car engine)
+### Rewards
+- "Smooth Criminal" badge (first time)
+- Snack item (repeatable)
+- 300 bonus points (perfect hide with both distractions used)
+
+### Cooldown
+- 30 minutes
 
 ---
 
-## 5. Cleaning Game
+## 5. Cleaning Game ⭐ (HIGHEST PRIORITY - Alex Rank #1)
 
 ### Concept
-Maintenance mini-game where you clean smoking accessories for bonuses.
+All-in-one cleaning session: scrub bong + dust grinder + clean bowl. Unlocks usable/tradeable items.
 
-### Three Cleaning Tasks
+### THREE TASKS (All in One Session - Alex Confirmed)
 
 #### 5.1 Scrub Bong
-**Mechanic:** Swipe/tap to scrub dirty spots
+**Mechanic:** Tap/swipe to scrub dirty spots (Alex specified)
+- Bong shows brown resin spots (5-10 spots)
+- Swipe/tap each spot until clean
+- Progress bar per spot
 
-**Gameplay:**
-1. Bong appears with brown resin spots (5-10 spots)
-2. Swipe over each spot to clean (progress bar per spot)
-3. Clean all spots = sparkling bong
-
-**Reward:** 50 points, bong item unlocked for profile display
+**Reward:** Clean bong = usable item in inventory (tradeable)
 
 #### 5.2 Dust Out Grinder
-**Mechanic:** Shake or rapid-tap to knock out kief
+**Mechanic:** Tap/swipe to knock out kief
+- Grinder screen shows clogged holes
+- Tap rapidly or swipe to dislodge particles
+- Kief collects in bottom chamber (visual meter fills)
 
-**Gameplay:**
-1. Grinder screen shows clogged holes
-2. Tap rapidly or shake device (mobile) to dislodge particles
-3. Meter fills as kief collects in bottom chamber
-
-**Reward:** 50 points + bonus kief (used for premium joint rolling)
+**Reward:** Kief item (used for premium joint rolling)
 
 #### 5.3 Clean Bowl
-**Mechanic:** Tap to knock out ash, swipe to wipe clean
+**Mechanic:** Tap to knock out ash + swipe to scrub
+- Bowl piece shows black ash buildup
+- Tap to knock ash into tray (satisfying animation)
+- Swipe with virtual pipe cleaner to scrub inside
+- Optional: rinse with water
 
-**Gameplay:**
-1. Bowl piece shows black ash buildup
-2. Tap to knock ash into tray (satisfying animation)
-3. Swipe with pipe cleaner to scrub inside
-4. Rinse with virtual water (optional)
+**Reward:** Clean bowl = usable/tradeable item
 
-**Reward:** 50 points, clean bowl = 10% faster rolling joints
+### Item Degradation System (Alex Confirmed)
+- **Items get dirty every 10 hours** (auto-timer)
+- Dirty items = visual indicator (brown/black buildup)
+- Clean items = visual sparkle effect
 
-### Item Degradation System
-- Items don't degrade automatically (no forced maintenance)
-- Cleaning is OPTIONAL but gives bonuses:
-  - Clean bong = chat room decoration
-  - Clean grinder = faster weed processing
-  - Clean bowl = aesthetic flex
+### Unlockables (Alex Specified)
+- **Bongs** - usable items, can be equipped (up to 3 items equipped total)
+- **Grinders** - permanent items, tradeable, equipable
+- **Bowls** - usable/tradeable
+- **Kief** - consumable (enhances joint rolling)
 
-### UI/UX
+### WoW-Style Loot (Alex Requirement)
+Items drop with rarity tiers:
+- **Common** - Basic bong/grinder
+- **Uncommon** - Colored glass, patterns
+- **Rare** - Designer brands, special effects
+- **Epic** - Animated items, particle effects
+- **Legendary** - Ultra-rare, limited edition
+
+### Inventory System Integration (Alex Full Spec)
+- **Unlimited storage**
+- **Can equip up to 3 items** (grinders, lighters, papers, filters, dabs, batteries, bongs)
+- **Equipped items = buffs/bonuses** (e.g., faster rolling, better kief collection)
+- **Tradeable with other players**
+
+### Visual
 - Close-up view of each item
 - Dirt particles that disappear when cleaned
-- Before/after comparison screen
+- Before/after comparison
 - Satisfying sparkle effect when done
 
-### Technical Notes
-- Swipe detection (mouse drag or touch)
-- Progress tracking per spot/area
-- Item state saved in localStorage
+### Rewards
+- 150 weed points total (50 per task)
+- Clean items added to inventory
+- Kief consumable
+- First clean: "Clean Freak" badge
+
+### Cooldown
+- 30 minutes (but cleaning is REQUIRED every 10 hours to prevent item degradation penalties)
 
 ---
 
-## Mini-Game Economy
+## Mini-Game Economy (Updated)
 
 ### Points Breakdown
 | Mini-Game | Base Points | Perfect Bonus | Time to Complete |
 |-----------|-------------|---------------|------------------|
 | Rolling Joints | 100/joint | +50 (perfect roll) | 30-60 sec |
 | Hotboxing Car | 250 | +100 (under 30 sec) | 30-60 sec |
-| Coppin' Weed | 200 | +100 (perfect daps) | 45-90 sec |
+| Coppin' Weed | 200 | +100 (all perfect) | 60-90 sec |
 | Hiding from Cops | 0 (defensive) | +300 (perfect hide) | 20-40 sec |
 | Cleaning (all 3) | 150 total | +50 (all perfect) | 2-3 min |
 
-### Cooldowns (Prevent Grinding)
-- Rolling Joints: None (unlimited)
-- Hotboxing Car: 30 minutes
-- Coppin' Weed: 1 hour
-- Hiding from Cops: Random event only
-- Cleaning: 24 hours per item
+### Universal Cooldowns (Alex Rule)
+- **All mini-games: 30 minutes**
+- Exception: Cleaning (required every 10 hours due to degradation)
 
-### Daily Challenges (Phase 2)
-- "Roll 10 joints in 5 minutes"
-- "Hotbox without missing a tap"
-- "Call the weed man in under 3 seconds"
-- Completion = 2x points for the day
+### Monetization (Alex Confirmed)
+- **Buy weed points with real money**
+- Mini-games are FREE to play (cooldown-gated, not pay-gated)
+- Exclusive mini-game rewards NOT available in Drip Store
 
 ---
 
-## Item Drops & Unlockables
+## Item & Inventory System (Alex Full Spec)
 
-### Items Earned from Mini-Games
+### Inventory Structure
+- **Unlimited storage** (no slot limits)
+- **Categorized:**
+  - Consumables (joints, weed, kief, snacks, dabs)
+  - Equipment (grinders, lighters, papers, filters, batteries, bongs)
+  - Cosmetics (skins, effects, badges)
 
-**Rolling Joints:**
-- Basic joint (common)
-- Gold paper joint (rare, 5% drop)
-- Flavored wraps (uncommon, 15% drop)
+### Equipment Slots (Alex: Up to 3 Equipped)
+Players can equip 3 items simultaneously from:
+- Grinders
+- Lighters
+- Rolling papers
+- Filters
+- Dabs
+- Batteries
+- Bongs
+- Other weed accessories
 
-**Hotboxing Car:**
-- Smoke trail effect (permanent unlock)
-- Car decoration for profile (rare)
+### Equipped Item Buffs
+- **Legendary Grinder** = +20% kief collection
+- **Epic Lighter** = faster hotbox taps
+- **Rare Papers** = premium joint quality boost
+- etc.
 
-**Coppin' Weed:**
-- Designer weed (gold nugs, 10% faster rolls)
-- Weed man contact card (profile badge)
+### Trading System (Alex Confirmed)
+- **Players can trade items with each other**
+- Trade UI: drag items to trade window
+- Confirm both sides
+- Trade complete = items swap inventories
 
-**Hiding from Cops:**
-- "Smooth Criminal" badge
-- Stealth shades (sunglasses cosmetic)
+### Rarity Tiers (WoW-Style, Alex Required)
+- **Common** (white) - 50% drop rate
+- **Uncommon** (green) - 30% drop rate
+- **Rare** (blue) - 15% drop rate
+- **Epic** (purple) - 4% drop rate
+- **Legendary** (orange) - 1% drop rate
 
-**Cleaning:**
-- Sparkling bong (profile decoration)
-- Kief collector (2x kief per grind)
-- Pipe cleaner accessory (avatar item)
-
-### Item Usage in Chat Rooms
-- Joints: Share with room (group smoke animation)
-- Bong: Display as room decoration (if you're VIP)
-- Accessories: Equip on avatar for social flex
-
----
-
-## Progression & Mastery
-
-### Skill Levels (Per Mini-Game)
-Track player progress with XP:
-- Novice (0-100 XP)
-- Apprentice (100-500 XP)
-- Skilled (500-1500 XP)
-- Expert (1500-5000 XP)
-- Master (5000+ XP)
-
-### Unlocks by Level
-- **Novice:** Basic items only
-- **Apprentice:** Uncommon items (15% drop)
-- **Skilled:** Rare items (5% drop), custom animations
-- **Expert:** Legendary items (1% drop), leaderboard access
-- **Master:** Exclusive badge, profile frame, title
-
-### Leaderboards
-- Fastest joint roller
-- Most taps in hotbox game
-- Perfect dap streak
-- Cleanest setup
+### Consumables vs. Permanent
+- **Consumables:** Joints, weed, kief, snacks, dabs (used once, gone)
+- **Permanent:** Grinders, lighters, bongs, papers, filters (keep forever, tradeable)
 
 ---
 
-## Technical Architecture
+## Chat Room Integration (Alex Updates)
 
-### Data Model
-```javascript
-{
-  miniGames: {
-    rollingJoints: {
-      gamesPlayed: 0,
-      jointsRolled: 0,
-      perfectRolls: 0,
-      xp: 0,
-      level: 1
-    },
-    hotboxing: {
-      gamesPlayed: 0,
-      completions: 0,
-      fastestTime: null,
-      xp: 0,
-      level: 1,
-      lastPlayed: timestamp
-    },
-    coppinWeed: {
-      gamesPlayed: 0,
-      successRate: 0.0,
-      perfectDaps: 0,
-      xp: 0,
-      level: 1,
-      lastPlayed: timestamp
-    },
-    hidingFromCops: {
-      encounters: 0,
-      successes: 0,
-      perfectHides: 0,
-      xp: 0,
-      level: 1
-    },
-    cleaning: {
-      itemsCleaned: 0,
-      lastCleaned: {
-        bong: null,
-        grinder: null,
-        bowl: null
-      },
-      xp: 0,
-      level: 1
-    }
-  },
-  inventory: {
-    joints: [],
-    weed: 0,
-    kief: 0,
-    items: [],
-    buffs: []
-  }
-}
-```
+### Sharing Items (Alex: "Yes to all")
+- **Share joint** = all players in room get buff
+- **Gift snack** = one player gets buff
+- **Show off equipped items** = other players can see your gear
+- **Item emotes** = use item as social action
 
-### File Structure
-```
-prototype/
-  minigames/
-    rolling-joints.html
-    hotboxing.html
-    coppin-weed.html
-    hiding-cops.html
-    cleaning.html
-  assets/
-    minigames/
-      bong.png
-      grinder.png
-      joint.png
-      car-interior.png
-      cop.png
-      phone-ui.png
-```
+### Buffs in Chat Rooms
+- **Smoke particles** around avatar (from shared joints)
+- **Red eyes** effect (progressive)
+- **Reek buff** (smoke on clothes from hotbox)
+- **Snack buff** (temporary boost)
 
-### Integration with Main App
-- Mini-game buttons appear on main hub during countdown
-- "Play while you wait" CTA
-- Earned items sync to main inventory
-- Points update in real-time
+### Visual Effects (Alex: "Just smoke and eyes get red")
+- NO speech bubbles
+- NO complex emote animations
+- FOCUS on smoke particles + eye color changes
 
 ---
 
-## Art Requirements
+## Social Features (Alex Answers)
 
-### Illustrations Needed
-- Car interior (dashboard, windshield, seats)
+### Confirmed for MVP:
+- ✅ **Emotes** (item-based)
+- ✅ **Gifting items** (joints, snacks, etc.)
+- ✅ **Trading** (inventory items)
+- ✅ **See other players' stats** (check-ins, streak, items owned)
+
+### NOT in MVP (Post-Launch):
+- ❌ Friend lists
+- ❌ Private DMs
+
+### Leaderboards (Alex: "All of them")
+- Total weed points
+- Longest streak
+- Most joints rolled
+- Mini-game high scores (per game)
+- Items collected
+- Trades completed
+
+---
+
+## Technical Requirements (Alex Answers)
+
+### Platforms
+- **Mobile + Web** (all platforms, Alex confirmed)
+
+### Audio
+- **Sound effects + music** (YES - Alex confirmed)
+- Lighter flick, inhale/exhale, scrubbing, tapping, etc.
+
+### Timing
+- **Mini-games can be played DURING the 4:20 window** (Alex update)
+- Player choice: join chat OR play mini-game
+- **Must finish mini-game before joining chat** (or quit mid-game)
+- No simultaneous play (can't chat + mini-game at once)
+
+### Auto-Save
+- Progress saved in localStorage
+- Cloud sync (Phase 2 with Supabase)
+
+---
+
+## Art Style (Alex Confirmed)
+
+### Visual Direction
+- **Match avatar art style** (Gorillaz/chibi illustrated)
+- **Stylized weed/joints/bongs** (NOT realistic)
+- **Streets of Rage meets Gorillaz + Japanese anime** (for backgrounds)
+
+### Asset Needs
+- Car interior (hotbox game)
+- Bike + corner + weed man character (coppin' game)
 - Cop character (3 poses: walking, looking, distracted)
-- Phone UI mockup
 - Bong, grinder, bowl (dirty + clean versions)
 - Rolling tray + weed + papers
-- Street corner background
-- Weed man character
-
-### Animations
-- Smoke filling car (opacity fade-in)
-- Joint rolling (paper wraps around weed)
-- Dap sequence (hands meeting)
-- Cleaning (dirt particles disappearing)
-
-### Sound Effects (Phase 2)
-- Lighter flick
-- Inhale/exhale
-- Phone dial tones
-- Dap sound (slap)
-- Cop radio chatter
-- Scrubbing/cleaning sounds
+- Phone UI mockup
 
 ---
 
-## Development Roadmap
+## Development Priority (Alex Ranking)
 
-### Week 1 (March 14-21): Core Mechanics
-- Rolling joints prototype (Canvas-based dragging)
-- Hotboxing tap mechanic
-- Points integration with main economy
+### Mini-Game Importance (Alex Ranked 1-5)
+1. **Cleaning Game** ⭐ (HIGHEST PRIORITY)
+2. Rolling Joints
+3. Hotboxing Car
+4. Coppin' Weed
+5. Hiding from Cops
 
-### Week 2 (March 22-28): Advanced Games
-- Coppin' weed (phone + dap mechanics)
-- Hiding from cops (timing + stealth)
-- Cleaning game (swipe detection)
+### Build Order
+1. Cleaning (get item system + degradation working first)
+2. Rolling (feeds into chat room sharing mechanics)
+3. Hotboxing (buffs + visual effects)
+4. Coppin' + Hiding (linked gameplay loop)
 
-### Week 3 (March 29-April 4): Polish & Integration
-- Art assets for all games
-- Inventory system
-- Item usage in chat rooms
+---
 
-### Week 4 (April 5-11): Testing & Balance
-- Cooldown tuning
-- Point economy balancing
-- Bug fixes
+## Launch Timeline (Alex Decision)
 
-### Week 5 (April 12-19): Final Polish
-- Sound effects
-- Animations
-- Leaderboards
-- Achievement system
+### MVP Scope (Alex Answer: "Option C")
+- **All 5 mini-games required for MVP**
+- **Delay launch if needed** (April 27 instead of April 20)
 
-### April 20: Launch
-- All 5 mini-games live and functional
+### Simplified Versions OK? (Alex Answer: "3" = Yes)
+- Ship simplified mechanics for MVP
+- Polish + expand post-launch
 
 ---
 
 ## Success Metrics
 
 ### Engagement Goals
-- 60%+ of users play at least one mini-game daily
-- Average 3-5 mini-game sessions per user per day
-- 20%+ of users reach "Skilled" level in at least one game
+- 70%+ of users play at least one mini-game daily
+- Average 4-6 mini-game sessions per user per day
+- 30%+ of users reach "Expert" level in at least one game
+
+### Item Economy
+- 50%+ of players trade items within first week
+- Average 10+ items in player inventory by Day 7
+- Legendary item drop = viral screenshot moment
 
 ### Retention Impact
 - Mini-games reduce churn during countdown periods
-- Target: 10% increase in Day 7 retention vs. no mini-games
-
-### Monetization
-- Premium items unlocked via mini-game mastery
-- "Skip cooldown" IAP (controversial, TBD)
-- Cosmetic rewards drive Drip Store purchases
+- Target: 15% increase in Day 7 retention vs. no mini-games
 
 ---
 
-**Document Status:** Living document - will update as mechanics are refined.  
-**Next Review:** Weekly during development sprint
+**Document Status:** Complete based on Alex's full questionnaire responses.  
+**Next Steps:** Build Cleaning Game first, then Rolling Joints.  
+**Last Updated:** March 16, 2026
 
 ---
 
-*Built by Laibyrinth | https://laibyrinth.com*
+*Built by Laibyrinth | Cappy*
