@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleaning Game - 420 Worlds</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.game-container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.game-title {
+  font-size: 2.5em;
+  color: #39ff14;
+  margin-bottom: 10px;
+}
+
+.game-subtitle {
+  color: rgba(255,255,255,0.7);
+}
+
+.task-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.task-btn {
+  padding: 15px 30px;
+  background: rgba(26, 46, 26, 0.3);
+  border: 2px solid rgba(57, 255, 20, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.task-btn.active {
+  background: rgba(57, 255, 20, 0.2);
+  border-color: #39ff14;
+}
+
+.task-btn.completed {
+  background: rgba(57, 255, 20, 0.3);
+  border-color: #39ff14;
+}
+
+.task-btn.completed::after {
+  content: " ✓";
+}
+
+.cleaning-canvas {
+  background: rgba(26, 46, 26, 0.3);
+  border: 2px solid rgba(57, 255, 20, 0.3);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+canvas {
+  border-radius: 10px;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.progress-bar {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  height: 30px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #39ff14, #2dd10f);
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #0a0a0a;
+}
+
+.instructions {
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ffd700;
+}
+
+.reward-display {
+  background: rgba(57, 255, 20, 0.1);
+  border: 2px solid #39ff14;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  display: none;
+}
+
+.reward-display.show {
+  display: block;
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reward-title {
+  font-size: 1.5em;
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.reward-item {
+  font-size: 1.2em;
+  color: #39ff14;
+  margin: 10px 0;
+}
+
+.points-display {
+  font-size: 2em;
+  color: #ffd700;
+  margin-top: 15px;
+}
+
+.complete-btn {
+  width: 100%;
+  padding: 18px;
+  font-size: 1.2em;
+  font-weight: bold;
+  background: linear-gradient(135deg, #39ff14, #2dd10f);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  display: none;
+}
+
+.complete-btn.show {
+  display: block;
+}
+
+.complete-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 20px rgba(57, 255, 20, 0.4);
+}
+
+.rarity {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.rarity.common {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+.rarity.uncommon {
+  background: rgba(0,255,0,0.3);
+  color: #00ff00;
+}
+
+.rarity.rare {
+  background: rgba(0,100,255,0.3);
+  color: #0088ff;
+}
+
+.rarity.epic {
+  background: rgba(160,32,240,0.3);
+  color: #a020f0;
+}
+
+.rarity.legendary {
+  background: rgba(255,128,0,0.3);
+  color: #ff8000;
+}
+
+</style>
+</head>
+<body>
+
+<div class="game-container">
+  <div class="game-header">
+    <h1 class="game-title">🧼 Cleaning Game</h1>
+    <p class="game-subtitle">Clean your gear to unlock items</p>
+  </div>
+
+  <div class="task-selector">
+    <button class="task-btn active" onclick="selectTask('bong')">🫧 Bong</button>
+    <button class="task-btn" onclick="selectTask('grinder')">⚙️ Grinder</button>
+    <button class="task-btn" onclick="selectTask('bowl')">🥣 Bowl</button>
+  </div>
+
+  <div class="instructions" id="instructions">
+    Click or swipe on the dirty spots to clean them
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill">0%</div>
+  </div>
+
+  <div class="cleaning-canvas">
+    <canvas id="cleaningCanvas" width="400" height="400"></canvas>
+  </div>
+
+  <div class="reward-display" id="rewardDisplay">
+    <div class="reward-title">✨ Cleaning Complete!</div>
+    <div class="reward-item" id="itemReward"></div>
+    <div class="points-display" id="pointsReward"></div>
+  </div>
+
+  <button class="complete-btn" id="completeBtn" onclick="completeAllTasks()">
+    FINISH CLEANING (+150 💨)
+  </button>
+</div>
+
+<script>
+const canvas = document.getElementById('cleaningCanvas');
+const ctx = canvas.getContext('2d');
+
+let currentTask = 'bong';
+let tasks = {
+  bong: { completed: false, progress: 0, dirtySpots: [] },
+  grinder: { completed: false, progress: 0, dirtySpots: [] },
+  bowl: { completed: false, progress: 0, dirtySpots: [] }
+};
+
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+
+// Rarity system (WoW-style)
+const rarities = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
+const rarityChances = [0.5, 0.3, 0.15, 0.04, 0.01]; // 50%, 30%, 15%, 4%, 1%
+
+function getRarity() {
+  const roll = Math.random();
+  let cumulative = 0;
+  
+  for (let i = 0; i < rarities.length; i++) {
+    cumulative += rarityChances[i];
+    if (roll <= cumulative) {
+      return rarities[i];
+    }
+  }
+  
+  return 'common';
+}
+
+function initTask(task) {
+  tasks[task].dirtySpots = [];
+  
+  // Generate random dirty spots
+  const spotCount = task === 'bong' ? 8 : task === 'grinder' ? 12 : 6;
+  
+  for (let i = 0; i < spotCount; i++) {
+    tasks[task].dirtySpots.push({
+      x: 100 + Math.random() * 200,
+      y: 100 + Math.random() * 200,
+      radius: 15 + Math.random() * 15,
+      cleaned: false
+    });
+  }
+  
+  tasks[task].progress = 0;
+  renderTask(task);
+}
+
+function renderTask(task) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Draw item background
+  if (task === 'bong') {
+    // Bong shape
+    ctx.fillStyle = '#88ccff';
+    ctx.beginPath();
+    ctx.arc(200, 250, 60, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillRect(170, 150, 60, 100);
+    ctx.beginPath();
+    ctx.arc(200, 150, 30, Math.PI, 0);
+    ctx.fill();
+  } else if (task === 'grinder') {
+    // Grinder shape
+    ctx.fillStyle = '#888';
+    ctx.beginPath();
+    ctx.arc(200, 200, 80, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#666';
+    ctx.beginPath();
+    ctx.arc(200, 200, 60, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (task === 'bowl') {
+    // Bowl shape
+    ctx.fillStyle = '#8B4513';
+    ctx.beginPath();
+    ctx.arc(200, 220, 50, 0, Math.PI);
+    ctx.fill();
+    ctx.fillRect(180, 180, 40, 40);
+  }
+  
+  // Draw dirty spots
+  tasks[task].dirtySpots.forEach(spot => {
+    if (!spot.cleaned) {
+      ctx.fillStyle = 'rgba(70, 40, 20, 0.8)';
+      ctx.beginPath();
+      ctx.arc(spot.x, spot.y, spot.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  });
+  
+  updateProgress(task);
+}
+
+function selectTask(task) {
+  currentTask = task;
+  
+  // Update button states
+  document.querySelectorAll('.task-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.currentTarget.classList.add('active');
+  
+  // Initialize task if not started
+  if (tasks[task].dirtySpots.length === 0) {
+    initTask(task);
+  } else {
+    renderTask(task);
+  }
+  
+  // Update instructions
+  if (task === 'bong') {
+    document.getElementById('instructions').textContent = 'Swipe to scrub the dirty spots on the bong';
+  } else if (task === 'grinder') {
+    document.getElementById('instructions').textContent = 'Tap rapidly to dust out the grinder';
+  } else if (task === 'bowl') {
+    document.getElementById('instructions').textContent = 'Tap to knock out ash, then swipe to clean';
+  }
+}
+
+function cleanSpot(x, y) {
+  const task = tasks[currentTask];
+  let cleaned = false;
+  
+  task.dirtySpots.forEach(spot => {
+    if (!spot.cleaned) {
+      const distance = Math.sqrt(Math.pow(x - spot.x, 2) + Math.pow(y - spot.y, 2));
+      if (distance < spot.radius) {
+        spot.cleaned = true;
+        cleaned = true;
+      }
+    }
+  });
+  
+  if (cleaned) {
+    renderTask(currentTask);
+    checkTaskComplete(currentTask);
+  }
+}
+
+function updateProgress(task) {
+  const total = tasks[task].dirtySpots.length;
+  const cleaned = tasks[task].dirtySpots.filter(s => s.cleaned).length;
+  const progress = (cleaned / total) * 100;
+  
+  tasks[task].progress = progress;
+  
+  const progressFill = document.getElementById('progressFill');
+  progressFill.style.width = progress + '%';
+  progressFill.textContent = Math.round(progress) + '%';
+}
+
+function checkTaskComplete(task) {
+  if (tasks[task].progress === 100 && !tasks[task].completed) {
+    tasks[task].completed = true;
+    
+    // Mark button as completed
+    document.querySelectorAll('.task-btn').forEach((btn, i) => {
+      const taskName = ['bong', 'grinder', 'bowl'][i];
+      if (taskName === task) {
+        btn.classList.add('completed');
+      }
+    });
+    
+    // Show reward
+    showReward(task);
+    
+    // Check if all tasks complete
+    if (tasks.bong.completed && tasks.grinder.completed && tasks.bowl.completed) {
+      document.getElementById('completeBtn').classList.add('show');
+    }
+  }
+}
+
+function showReward(task) {
+  const rarity = getRarity();
+  const items = {
+    bong: 'Clean Bong',
+    grinder: 'Clean Grinder + Kief',
+    bowl: 'Clean Bowl'
+  };
+  
+  const rewardDisplay = document.getElementById('rewardDisplay');
+  const itemReward = document.getElementById('itemReward');
+  const pointsReward = document.getElementById('pointsReward');
+  
+  itemReward.innerHTML = `${items[task]} <span class="rarity ${rarity}">${rarity.toUpperCase()}</span>`;
+  pointsReward.textContent = '+50 💨';
+  
+  rewardDisplay.classList.add('show');
+  
+  setTimeout(() => {
+    rewardDisplay.classList.remove('show');
+  }, 3000);
+}
+
+function completeAllTasks() {
+  alert('✨ All tasks complete!\n\n+150 weed points\n\nItems added to inventory:\n• Clean Bong\n• Clean Grinder\n• Clean Bowl\n• Kief (consumable)');
+  
+  // Reset for next play
+  tasks = {
+    bong: { completed: false, progress: 0, dirtySpots: [] },
+    grinder: { completed: false, progress: 0, dirtySpots: [] },
+    bowl: { completed: false, progress: 0, dirtySpots: [] }
+  };
+  
+  document.querySelectorAll('.task-btn').forEach(btn => {
+    btn.classList.remove('completed');
+  });
+  
+  document.getElementById('completeBtn').classList.remove('show');
+  
+  selectTask('bong');
+}
+
+// Mouse events
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  const rect = canvas.getBoundingClientRect();
+  lastX = e.clientX - rect.left;
+  lastY = e.clientY - rect.top;
+  cleanSpot(lastX, lastY);
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (!isDrawing) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  cleanSpot(x, y);
+  lastX = x;
+  lastY = y;
+});
+
+canvas.addEventListener('mouseup', () => {
+  isDrawing = false;
+});
+
+canvas.addEventListener('mouseout', () => {
+  isDrawing = false;
+});
+
+// Touch events
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  isDrawing = true;
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  lastX = touch.clientX - rect.left;
+  lastY = touch.clientY - rect.top;
+  cleanSpot(lastX, lastY);
+});
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  if (!isDrawing) return;
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const x = touch.clientX - rect.left;
+  const y = touch.clientY - rect.top;
+  cleanSpot(x, y);
+  lastX = x;
+  lastY = y;
+});
+
+canvas.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  isDrawing = false;
+});
+
+// Initialize
+initTask('bong');
+
+</script>
+
+</body>
+</html>
